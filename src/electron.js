@@ -1,7 +1,6 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 const isDev = require('electron-is-dev')
-const nodePty = require('node-pty');
 
 function createWindow () {
   // Create the browser window.
@@ -28,7 +27,6 @@ function createWindow () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.allowRendererProcessReuse = false;
 app.whenReady().then(createWindow)
 
 // Quit when all windows are closed, except on macOS. There, it's common

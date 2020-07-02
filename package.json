@@ -16,26 +16,17 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "antd": "^4.4.0",
-    "chai": "^4.2.0",
     "cross-env": "^7.0.2",
-    "customize-cra": "^1.0.0",
     "electron-is-dev": "^1.2.0",
-    "express-ws": "^4.0.0",
-    "node-pty": "^0.9.0",
-    "node-ssh": "^10.0.2",
     "react": "^16.13.1",
-    "react-app-rewired": "^2.1.6",
-    "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "^3.4.1",
-    "react-xterm": "^2.0.4",
-    "yarn": "^1.22.4"
+    "react-scripts": "3.4.1"
   },
   "scripts": {
-    "react-start": "react-app-rewired start",
-    "react-build": "react-app-rewired build",
-    "react-test": "react-app-rewired test",
-    "react-eject": "react-app-rewired eject",
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test",
+    "react-eject": "react-scripts eject",
     "electron-build": "electron-builder",
     "build": "npm run react-build && electron-builder",
     "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron .\""
@@ -59,8 +50,6 @@
     "concurrently": "^5.2.0",
     "electron": "^9.0.5",
     "electron-builder": "^22.7.0",
-    "electron-rebuild": "^1.11.0",
-    "wait-on": "^5.0.1",
-    "webpack-node-externals": "^1.7.2"
+    "wait-on": "^5.0.1"
   }
 }
