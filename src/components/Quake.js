@@ -1,19 +1,37 @@
 import React from 'react';
 import { Drawer, Button, Space } from 'antd';
-import Terminal from './XTerm';
+import SSHTerminal from './SSHTerminal';
+import { changeFocus, controlTerminal } from '../actions';
+import { connect } from 'react-redux';
+
 
 class Quake extends React.Component {
-	state = { visible: false};
+	constructor(props, context){
+		super(props, context);
+		this.state = { visible: false};
+	}
+
+	componentDidUpdate(){
+		if(this.props.isOpen && !this.state.visible){
+			this.showDrawer();
+		} else if (!this.props.isOpen && this.state.visible){
+			this.hideDrawer();
+		}
+	}
 	
 	showDrawer = () => {
 		this.setState({
 			visible: true,
+		}, () => {
+			this.props.changeFocus(true);
 		});
 	};
 	
-	onClose = () => {
+	hideDrawer = () => {
 		this.setState({
 			visible: false,
+		}, () => {
+			this.props.changeFocus(false);
 		});
 	};
 	
@@ -22,21 +40,31 @@ class Quake extends React.Component {
 		return (
 			<>
 				<Space>
-					<Button type="primary" onClick={this.showDrawer}>
+					<Button type="primary" onClick={() => this.props.controlTerminal(true)}>
 			Open
 					</Button>
 				</Space>
 				<Drawer
 					placement='top'
 					closable={false}
-					onClose={this.onClose}
+					onClose={() => this.props.controlTerminal(false)}
 					visible={visible}
+					bodyStyle={{padding: 0,
+						overflow:'auto'}}
+
 				>
-					<Terminal/>
+					<SSHTerminal/>
 				</Drawer>
 			</>
 		);
 	}
 }
 	
-export default Quake; 
+function mapStateToProps({ openTerminalReducer }){
+	console.log(openTerminalReducer);
+	return {
+		isOpen : openTerminalReducer.isOpen
+	};
+}
+	
+export default connect(mapStateToProps, {changeFocus, controlTerminal})(Quake); 

@@ -1,0 +1,2 @@
+export const FOCUSCHANGED = 'FOCUSCHANGED';
+export const TERMQUAKED = 'TERMQUAKED';

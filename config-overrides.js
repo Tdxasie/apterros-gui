@@ -1,6 +1,4 @@
+const nodeExternals = require('webpack-node-externals');
+const {addWebpackExternals, override} = require('customize-cra');
 
-// const nodeExternals = require('webpack-node-externals');
-// const {addWebpackExternals, override} = require('customize-cra');
-
-
-// module.exports = override(addWebpackExternals([nodeExternals()]));
+module.exports = override(addWebpackExternals([nodeExternals()]));

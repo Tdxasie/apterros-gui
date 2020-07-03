@@ -1,12 +1,9 @@
 import * as React from 'react';
 import { Terminal } from 'xterm';
-const className = require('classnames');
-// const debounce = require('lodash.debounce');
-// import styles from 'xterm/xterm.css';
 
-// require ('xterm/xterm.css');
+import className from 'classnames';
 
-export default class XTerm extends React.Component {
+class XTerm extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
@@ -16,8 +13,6 @@ export default class XTerm extends React.Component {
 	componentDidMount() {
 		this.xterm = new Terminal(this.props.options);
 		this.xterm.open(this.container);
-		// this.xterm.onFocus(this.focusChanged.bind(this, true));
-		// this.xterm.onBlur(this.focusChanged.bind(this, false));
 		if (this.props.onContextMenu) {
 			this.xterm.element.addEventListener('contextmenu', this.onContextMenu.bind(this));
 		}
@@ -43,7 +38,7 @@ export default class XTerm extends React.Component {
 	
 	shouldComponentUpdate(nextProps) {
 		// console.log('shouldComponentUpdate', nextProps.hasOwnProperty('value'), nextProps.value != this.props.value);
-		if (nextProps.value != this.props.value) {
+		if (nextProps.value !== this.props.value) {
 			if (this.xterm) {
 				this.xterm.clear();
 				setTimeout(()=>{
@@ -96,4 +91,4 @@ export default class XTerm extends React.Component {
 		return <div ref={ref => (this.container = ref)} className={terminalClassName} />;
 	}
 }
-export { Terminal, XTerm };
+export default XTerm;
