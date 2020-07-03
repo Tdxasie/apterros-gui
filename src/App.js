@@ -1,25 +1,23 @@
-import React from "react";
-import { Button } from "antd";
-import "./App.css";
-import "./xterm.css";
-import { Component } from "react";
+import React from 'react';
+import './App.css';
+import './xterm.css';
+import { Component } from 'react';
 
-import Terminal from "./terminal";
+import Quake from './components/Quake';
 
 // antdesign layouts
 
 class App extends Component {
-  // constructor(props, context) {
-  //   super(props, context);
-  // }
-  render() {
-    return (
-      <div className="App">
-        
-        <Terminal/>
-      </div>
-    );
-  }
+	// constructor(props, context) {
+	//   super(props, context);
+	// }
+	render() {
+		return (
+			<div className="App">
+				<Quake/>
+			</div>
+		);
+	}
 }
 
 export default App;
