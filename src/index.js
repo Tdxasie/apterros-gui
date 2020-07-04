@@ -6,8 +6,12 @@ import * as serviceWorker from './serviceWorker';
 import { createStore } from 'redux';
 import allReducers from './reducers';
 import { Provider } from 'react-redux';
+import MQTTReciever from './scripts/mqtt';
 
 const store = createStore(allReducers);
+
+const mqtt = new MQTTReciever(store);
+mqtt.connect();
 
 ReactDOM.render(
 	<React.StrictMode>

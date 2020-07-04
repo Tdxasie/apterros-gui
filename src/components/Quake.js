@@ -61,7 +61,6 @@ class Quake extends React.Component {
 }
 	
 function mapStateToProps({ openTerminalReducer }){
-	console.log(openTerminalReducer);
 	return {
 		isOpen : openTerminalReducer.isOpen
 	};

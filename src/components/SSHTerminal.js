@@ -5,7 +5,7 @@ import { FitAddon } from 'xterm-addon-fit';
 import NodeSSH from 'node-ssh';
 import LoginForm from './LoginForm.js';
 
-import { notification } from 'antd';
+import { notification, message } from 'antd';
 import { connect } from 'react-redux';
 
 const openNotificationWithIcon = (type, title, msg) => {
@@ -59,8 +59,10 @@ class SSHTerminal extends Component {
 
 	async SSHConnect(log_info){
 		const ssh = new NodeSSH();
+		const hide = message.loading('Awaiting connection...', 0);
 		try{
 			await ssh.connect(log_info);
+			hide();
 			let shell = await ssh.requestShell();
 			this.setState({
 				logged: true,
@@ -68,6 +70,7 @@ class SSHTerminal extends Component {
 			});
 
 		} catch (e){
+			hide();
 			openNotificationWithIcon('error', 'Authentication failed', 'Please use correct ssh login credentials.');
 		}
 	}
