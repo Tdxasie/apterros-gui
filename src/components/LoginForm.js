@@ -3,8 +3,8 @@ import { Form, Input, Button } from 'antd';
 
 
 const layout = {
-	labelCol: { span: 8 },
-	wrapperCol: { span: 16 },
+	labelCol: { span:8  },
+	wrapperCol: { span: 8 },
 };
 const tailLayout = {
 	wrapperCol: { offset: 8, span: 16 },
@@ -23,6 +23,9 @@ class LoginForm extends React.Component{
 	render() {
 		return (
 			<div>
+				<br></br>
+				<br></br>
+				<br></br>
 				<Form
 					{...layout}
 					name="basic"

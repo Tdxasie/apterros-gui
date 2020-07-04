@@ -9,10 +9,20 @@ import { controlTerminal } from './actions';
 // antdesign layouts
 
 class App extends Component {
+	constructor(props, context){
+		super(props, context);
+		this.inputRef = React.createRef();
+	}
+    
+	componentDidUpdate(){
+		if (!this.props.isOpen) {
+			this.inputRef.current.focus();
+		}
+	}
 
 	render() {
 		return (
-			<div className="App">
+			<div ref={this.inputRef} tabIndex={-1}>
 				<GlobalHotKeys
 					keyName='alt+t'
 					onKeyDown={() => this.props.controlTerminal(!this.props.isOpen)}

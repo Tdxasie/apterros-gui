@@ -21,8 +21,10 @@
 		"@testing-library/react": "^9.5.0",
 		"@testing-library/user-event": "^7.2.1",
 		"antd": "^4.4.0",
+		"antd-theme-generator": "^1.2.4",
 		"chai": "^4.2.0",
 		"cross-env": "^7.0.2",
+		"custom-electron-titlebar": "^3.2.2-hotfix62",
 		"customize-cra": "^1.0.0",
 		"electron-is-dev": "^1.2.0",
 		"express-ws": "^4.0.0",
@@ -71,6 +73,7 @@
 		"electron-rebuild": "^1.11.0",
 		"eslint-plugin-react": "^7.20.3",
 		"eslint-plugin-react-hooks": "^4.0.5",
+		"less-loader": "^6.2.0",
 		"wait-on": "^5.0.1",
 		"webpack-node-externals": "^1.7.2"
 	}

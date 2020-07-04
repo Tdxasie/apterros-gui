@@ -46,12 +46,13 @@ class Quake extends React.Component {
 				</Space>
 				<Drawer
 					placement='top'
+					height='552'
 					closable={false}
 					onClose={() => this.props.controlTerminal(false)}
 					visible={visible}
 					bodyStyle={{padding: 0,
-						overflow:'auto'}}
-
+						overflow:'auto'
+					}}
 				>
 					<SSHTerminal/>
 				</Drawer>

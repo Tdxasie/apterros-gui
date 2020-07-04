@@ -7,11 +7,13 @@ import LoginForm from './LoginForm.js';
 
 import { notification, message } from 'antd';
 import { connect } from 'react-redux';
+import { controlTerminal } from '../actions';
 
 const openNotificationWithIcon = (type, title, msg) => {
 	notification[type]({
 		message: title,
-		description: msg
+		description: msg,
+		top: 34
 	});
 };
 
@@ -48,6 +50,9 @@ class SSHTerminal extends Component {
         
 		this.state.shell.on('data', (res) => xterm.write('' + res));
 		term.onKey((e) => {
+			if (e.domEvent.key === 'Escape' || (e.domEvent.key === 't' && e.domEvent.altKey)){
+				this.props.controlTerminal(false);
+			}
 			e.domEvent.preventDefault();
 			this.state.shell.write(e.key);
 		});
@@ -59,7 +64,12 @@ class SSHTerminal extends Component {
 
 	async SSHConnect(log_info){
 		const ssh = new NodeSSH();
-		const hide = message.loading('Awaiting connection...', 0);
+		const hide = message.loading({
+			content: 'Awaiting connection...',
+			style: {
+				marginTop: 10
+			}
+		});
 		try{
 			await ssh.connect(log_info);
 			hide();
@@ -78,12 +88,11 @@ class SSHTerminal extends Component {
 	render() {
 		if (this.state.logged) {
 			return (
-				<div>
+				<div className='love'>
 					<XTerm
 						ref={this.inputRef}
 						style={{
-							width: '100%',
-							height: '100%',
+							scrollbarWidth:'none'
 						}}
 					/>
 				</div>
@@ -104,5 +113,5 @@ function mapStateToProps({ focusTerminalReducer }){
 	};
 }
 
-export default connect(mapStateToProps)(SSHTerminal);
+export default connect(mapStateToProps, {controlTerminal})(SSHTerminal);
 		

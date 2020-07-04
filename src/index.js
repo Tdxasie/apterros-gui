@@ -7,6 +7,11 @@ import { createStore } from 'redux';
 import allReducers from './reducers';
 import { Provider } from 'react-redux';
 import MQTTReciever from './scripts/mqtt';
+const customTitlebar = require('custom-electron-titlebar');
+
+new customTitlebar.Titlebar({
+	backgroundColor: customTitlebar.Color.fromHex('#141414')
+});
 
 const store = createStore(allReducers);
 
