@@ -1,9 +1,4 @@
-// const mqtt = require('mqtt');
 import mqtt from 'mqtt';
-// const fs = require('fs');
-
-// const NEWDATA = require('../constants/action_types');
-
 import { NEWDATA } from '../constants/action_types';
 
 const ip = 'mqtt://localhost:1883';
@@ -33,7 +28,7 @@ export default class MQTTReciever {
 				case 'test_channel':
 					return this.handleTestMessage(message);
 				default:
-					throw 'ta mere fdp';
+					console.log(`Recieved message on ${topic}`);
 			}
 		});
 	}
