@@ -36,7 +36,7 @@ export default class MQTTReciever {
 	handleTestMessage(message) {
 		this.store.dispatch({
 			type: NEWDATA,
-			payload: message
+			payload: JSON.parse(message.toString())
 		});
 	}
 } 

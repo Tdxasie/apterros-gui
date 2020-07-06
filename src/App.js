@@ -2,10 +2,15 @@ import React from 'react';
 import './App.css';
 import './xterm.css';
 import { Component } from 'react';
-import Quake from './components/Quake';
-import GlobalHotKeys from 'react-hot-keys';
 import { connect } from 'react-redux';
+import GlobalHotKeys from 'react-hot-keys';
 import { controlTerminal } from './actions';
+// components
+import Quake from './components/Quake';
+import LineChart from './components/LineChart';
+
+// import { VictoryBar } from 'victory';
+
 // antdesign layouts
 
 class App extends Component {
@@ -28,6 +33,7 @@ class App extends Component {
 					onKeyDown={() => this.props.controlTerminal(!this.props.isOpen)}
 				></GlobalHotKeys>
 				<Quake/>
+				<LineChart/>
 			</div>
 		);
 	}
