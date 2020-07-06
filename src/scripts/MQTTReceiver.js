@@ -4,7 +4,7 @@ import { NEWDATA } from '../constants/action_types';
 const ip = 'mqtt://localhost:1883';
 const channels = ['test_channel'];
 
-export default class MQTTReciever {
+export default class MQTTReceiver {
 	constructor(_store, _ip = ip, _channels = channels){
 		this.store = _store;
 		this.ip = _ip;
@@ -15,8 +15,6 @@ export default class MQTTReciever {
 		const client = mqtt.connect(this.ip);
 		client.on('connect',  () => {
 			console.log(`Connected to ${this.ip}`);
-			console.log(this.channels);
-			console.log(this.ip);
 			this.channels.forEach(chnl => {
 				client.subscribe(chnl);
 				console.log(`Subscribed to ${chnl}`);

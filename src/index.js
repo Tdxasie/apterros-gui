@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import { createStore } from 'redux';
 import allReducers from './reducers';
 import { Provider } from 'react-redux';
-import MQTTReciever from './scripts/mqtt';
+import MQTTReceiver from './scripts/MQTTReceiver';
 const customTitlebar = require('custom-electron-titlebar');
 
 new customTitlebar.Titlebar({
@@ -15,8 +15,13 @@ new customTitlebar.Titlebar({
 
 const store = createStore(allReducers);
 
-const mqtt = new MQTTReciever(store);
-mqtt.connect();
+try{
+	const mqtt = new MQTTReceiver(store);
+	mqtt.connect();
+} catch (e) {
+	console.log(e);
+}
+
 
 ReactDOM.render(
 	<React.StrictMode>

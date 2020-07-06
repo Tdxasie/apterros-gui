@@ -33,7 +33,7 @@ class App extends Component {
 					onKeyDown={() => this.props.controlTerminal(!this.props.isOpen)}
 				></GlobalHotKeys>
 				<Quake/>
-				<LineChart/>
+				{/* <LineChart2/> */}
 			</div>
 		);
 	}

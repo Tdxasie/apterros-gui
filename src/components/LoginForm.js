@@ -30,7 +30,7 @@ class LoginForm extends React.Component{
 					{...layout}
 					name="basic"
 					initialValues={{
-						host: '192.168.1.78', 
+						host: '169.254.57.12', 
 						username: 'pi',
 						password: 'raspberry'
 					}}
