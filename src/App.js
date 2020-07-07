@@ -7,7 +7,7 @@ import GlobalHotKeys from 'react-hot-keys';
 import { controlTerminal } from './actions';
 // components
 import Quake from './components/Quake';
-import LineChart from './components/LineChart';
+import LineChart2 from './components/LineChart2';
 
 // import { VictoryBar } from 'victory';
 
@@ -33,7 +33,7 @@ class App extends Component {
 					onKeyDown={() => this.props.controlTerminal(!this.props.isOpen)}
 				></GlobalHotKeys>
 				<Quake/>
-				{/* <LineChart2/> */}
+				<LineChart2/>
 			</div>
 		);
 	}
