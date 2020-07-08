@@ -1,28 +1,34 @@
 import mqtt from 'mqtt';
+
+// redux actions
 import { NEWDATA } from '../constants/action_types';
 import { MQTTSTATUS } from '../constants/action_types';
+import { MQTTPUBLISH } from '../constants/action_types';
 
 const ip = 'mqtt://localhost:1883';
 const channels = ['test_channel'];
+
+const options = {
+	clientId: 'apterros_gui',
+	keepalive: 10,
+	reconnectPeriod: 200,
+};
 
 export default class MQTTReceiver {
 	constructor(_store, _ip = ip, _channels = channels){
 		this.store = _store;
 		this.ip = _ip;
 		this.channels = _channels;
-		// this.store.subscribe(() => {
-		// 	console.log(this.store.getState());
-		// });
+		this.timeout = undefined;
+		this.store.subscribe(() => {
+			this.publisher(this.store.getState().mqttPublishReducer);
+		});
 	}
     
 	connect(){
-		const options = {
-			keepalive: 10,
-			reconnectPeriod: 1000,
-		};
-		const client = mqtt.connect(this.ip, options);
+		this.client = mqtt.connect(this.ip, options);
         
-		client.on('connect',  () => {
+		this.client.on('connect',  () => {
 			console.log(`Connected to ${this.ip}`);
 			this.store.dispatch({
 				type: MQTTSTATUS,
@@ -32,12 +38,14 @@ export default class MQTTReceiver {
 				}
 			});
 			this.channels.forEach(chnl => {
-				client.subscribe(chnl);
+				this.client.subscribe(chnl);
 				console.log(`Subscribed to ${chnl}`);
 			});
 		});
 
-		client.on('message', (topic, message) => {
+		this.client.on('message', (topic, message) => {
+			this.updateStatus();
+
 			switch(topic){
 				case 'test_channel':
 					return this.handleTestMessage(message);
@@ -46,7 +54,7 @@ export default class MQTTReceiver {
 			}
 		});
         
-		client.on('close', ()=>{
+		this.client.on('close', ()=>{
 			console.log('MQTT DISCONNECTED');
 			this.store.dispatch({
 				type: MQTTSTATUS,
@@ -57,6 +65,60 @@ export default class MQTTReceiver {
 			});
 		});
 	}
+
+	updateStatus() {
+		if (this.timeout === undefined) {
+			this.store.dispatch({
+				type: MQTTSTATUS,
+				payload: {
+					connection: true,
+					receiving_data: true
+				}
+			});
+		}
+		this.timeout = clearTimeout(this.timeout);
+		this.timeout = setTimeout(() => {
+			this.timeout = undefined;
+			this.store.dispatch({
+				type: MQTTSTATUS,
+				payload: {
+					connection: true,
+					receiving_data: false
+				}
+			});
+		}, 1000);
+	}
+
+	publisher(publishPacket){
+		if (publishPacket.topic !== undefined){
+			const topic = publishPacket.topic;
+			const message = publishPacket.message;
+			this.store.dispatch({
+				type: MQTTPUBLISH,
+				payload: {
+					topic: undefined,
+					message: undefined,
+					done: false
+				}
+			});
+			this.client.publish(topic, message, { qos:0 }, (err) => {
+				if (!err){
+					console.log('PUBLISH SUCCESSFUL');
+					this.store.dispatch({
+						type: MQTTPUBLISH,
+						payload: {
+							topic: undefined,
+							message: undefined,
+							done: true
+						}
+					});
+				} else {
+					console.log('ERROR: ', err);
+				}
+			});
+		}
+	}
+
     
 	handleTestMessage(message) {
 		this.store.dispatch({

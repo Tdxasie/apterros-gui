@@ -100,7 +100,7 @@ class SSHTerminal extends Component {
 		} else {
 			return (
 				<div>
-					<LoginForm onSubmit={ async (values) => this.SSHConnect(values)}/>
+					<LoginForm onSubmit={async (values) => this.SSHConnect(values)}/>
 				</div>
 			);
 		}

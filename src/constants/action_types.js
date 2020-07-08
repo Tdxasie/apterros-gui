@@ -6,3 +6,4 @@ export const TERMQUAKED = 'TERMQUAKED';
 
 export const NEWDATA = 'NEWDATA';
 export const MQTTSTATUS = 'MQTTSTATUS';
+export const MQTTPUBLISH = 'MQTTPUBLISH';

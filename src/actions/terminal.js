@@ -1,5 +1,7 @@
 import { FOCUSCHANGED, TERMQUAKED } from '../constants/action_types';
 
+// not formatted correctly, I was learning Redux okay ? 
+
 export const changeFocus = (focus) => {
 	return {
 		type: FOCUSCHANGED,

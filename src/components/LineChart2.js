@@ -1,14 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { appleStock } from '@vx/mock-data';
 import { LinePath } from '@vx/shape';
 import { scaleLinear } from '@vx/scale';
 import { max } from 'd3-array';
 import data from './sample_data';
 
-// We'll use some mock data from `@vx/mock-data` for this.
-// const data = appleStock;
-console.log(data);
+// console.log(data);
 
 // Data accessors
 // const xAccessor = d => d.x;
