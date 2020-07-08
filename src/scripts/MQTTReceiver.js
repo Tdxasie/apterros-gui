@@ -1,4 +1,5 @@
 import mqtt from 'mqtt';
+import { MEANWINDOW } from '../constants/settings';
 
 // redux actions
 import { NEWDATA } from '../constants/action_types';
@@ -20,6 +21,9 @@ export default class MQTTReceiver {
 		this.ip = _ip;
 		this.channels = _channels;
 		this.timeout = undefined;
+		this.mean_index = 0;
+		this.total = 0;
+		this.packet_index = 0;
 		this.store.subscribe(() => {
 			this.publisher(this.store.getState().mqttPublishReducer);
 		});
@@ -45,7 +49,6 @@ export default class MQTTReceiver {
 
 		this.client.on('message', (topic, message) => {
 			this.updateStatus();
-
 			switch(topic){
 				case 'test_channel':
 					return this.handleTestMessage(message);
@@ -120,11 +123,23 @@ export default class MQTTReceiver {
 	}
 
     
-	handleTestMessage(message) {
-		this.store.dispatch({
-			type: NEWDATA,
-			payload: JSON.parse(message.toString())
-		});
+	handleTestMessage(buffer) {
+		let message = JSON.parse(buffer.toString());
+		this.mean_index ++;
+		this.total += message.y;
+		if(this.mean_index === MEANWINDOW){
+			this.packet_index ++;
+			this.store.dispatch({
+				type: NEWDATA,
+				payload: {
+					x: this.packet_index,
+					y: this.total/MEANWINDOW
+				}
+			});
+			this.mean_index = 0;
+			this.total = 0;
+		}
+		
 	}
     
 } 

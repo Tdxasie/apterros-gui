@@ -35,7 +35,7 @@ class App extends Component {
 				></GlobalHotKeys>
 				<Quake/>
 				<MQTTInterface/>
-				{/* <LineChart2/> */}
+				<LineChart2/>
 			</div>
 		);
 	}

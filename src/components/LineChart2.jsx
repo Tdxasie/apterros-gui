@@ -3,27 +3,20 @@ import { connect } from 'react-redux';
 import { LinePath } from '@vx/shape';
 import { scaleLinear } from '@vx/scale';
 import { max } from 'd3-array';
-import data from './sample_data';
-
-// console.log(data);
-
-// Data accessors
-// const xAccessor = d => d.x;
-// const yAccessor = d => d.y;
+import { WINDOW } from '../constants/settings';
 
 class LineChart2 extends React.Component {
 	
 	render() {
-
 		const width = 500;
 		const height = 300;
-
-		const xMax = max(data, data.x);
-		const yMax = max(data, data.y);
+        
+		const xMax = max(this.props.data.map(v => v.x));
+		const yMax = max(this.props.data.map(v => v.y));
 
 		const xScale = scaleLinear({
 			range: [0, width],
-			domain: [1000, xMax],
+			domain: [xMax>WINDOW ? xMax-WINDOW : 0, xMax],
 		});
 
 		const yScale = scaleLinear({
@@ -35,7 +28,7 @@ class LineChart2 extends React.Component {
 			<div>
 				<svg width={width} height={height}>
 					<LinePath
-						data={data}
+						data={this.props.data}
 						x={d => xScale(d.x)}
 						y={d => yScale(d.y)}
 						strokeWidth={2}
@@ -48,7 +41,7 @@ class LineChart2 extends React.Component {
 		
 function mapStateToProps({ mqttDataReducer }) {
 	return {
-		data: mqttDataReducer
+		data: mqttDataReducer.data
 	};
 }
 		

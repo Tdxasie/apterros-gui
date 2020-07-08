@@ -3,7 +3,7 @@ import XTerm from './XTerm';
 import { FitAddon } from 'xterm-addon-fit';
 
 import NodeSSH from 'node-ssh';
-import LoginForm from './LoginForm.js';
+import LoginForm from './LoginForm.jsx';
 
 import { notification, message } from 'antd';
 import { connect } from 'react-redux';
