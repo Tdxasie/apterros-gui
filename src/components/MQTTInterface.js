@@ -10,7 +10,7 @@ class MQTTInterface extends React.Component{
 		this.state = {
 			status: 'processing',
 			status_text: 'Connecting',
-			idle: '#1f1f1f',
+			idle: '#3a3a3a',
 			idle_text: 'Idle',
 			publish_loading: false
 		};
@@ -32,16 +32,16 @@ class MQTTInterface extends React.Component{
 			if (this.props.status.receiving_data){
 				this.setState({ idle_text: 'Receiving Data'});
 				this.interval = setInterval(() => {
-					if (this.state.idle === '#1f1f1f') {
+					if (this.state.idle === '#3a3a3a') {
 						this.setState({ idle: 'orange' });
 					} else {
-						this.setState({ idle: '#1f1f1f' });
+						this.setState({ idle: '#3a3a3a' });
 					}
 				}, 100);
 			} else {
 				clearInterval(this.interval);
 				this.setState({ 
-					idle: '#1f1f1f',
+					idle: '#3a3a3a',
 					idle_text: 'Idle'
 				});
 			}
@@ -68,6 +68,7 @@ class MQTTInterface extends React.Component{
 						color={this.state.idle}
 						text={this.state.idle_text}
 					/>
+					<br/>
 					<br/>
 					<Button 
 						type="primary" 
