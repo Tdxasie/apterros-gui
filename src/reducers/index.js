@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux';
 
 import { focusTerminalReducer, openTerminalReducer } from './terminal';
-import mqttDataReducer from './mqtt';
+import { mqttDataReducer, mqttStatusReducer }from './mqtt';
 
 const allReducers = combineReducers({
 	focusTerminalReducer,
 	openTerminalReducer,
-	mqttDataReducer
+	mqttDataReducer,
+	mqttStatusReducer
 });
 
 export default allReducers;

@@ -8,8 +8,9 @@ import { controlTerminal } from './actions';
 // components
 import Quake from './components/Quake';
 import LineChart2 from './components/LineChart2';
+import MQTTInterface from './components/MQTTInterface';
 
-// import { VictoryBar } from 'victory';
+
 
 // antdesign layouts
 
@@ -33,7 +34,8 @@ class App extends Component {
 					onKeyDown={() => this.props.controlTerminal(!this.props.isOpen)}
 				></GlobalHotKeys>
 				<Quake/>
-				<LineChart2/>
+				<MQTTInterface/>
+				{/* <LineChart2/> */}
 			</div>
 		);
 	}
