@@ -1,3 +1,3 @@
 // chart settings
-export const WINDOW = 400;
+export const WINDOW = 100;
 export const MEANWINDOW = 10;

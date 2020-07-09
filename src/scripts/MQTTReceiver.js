@@ -122,7 +122,6 @@ export default class MQTTReceiver {
 		}
 	}
 
-    
 	handleTestMessage(buffer) {
 		let message = JSON.parse(buffer.toString());
 		this.mean_index ++;
