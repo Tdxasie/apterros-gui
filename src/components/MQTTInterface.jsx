@@ -62,35 +62,31 @@ class MQTTInterface extends React.Component{
 	render(){
 		return(
 			<>
-				<div className="mqtt-card">
-					<Card size="small" title="MQTT Status Check" style={{ width: 170 }}>
-
-						<Spin
-							spinning={this.state.loading}
-							tip="Connection lost"
-							indicator={loadingIcon}
-						>
-							<Badge
-								status={this.state.status}
-								text={this.state.status_text}
-							/>
-							<br />
-							<Badge
-								color={this.state.idle}
-								text={this.state.idle_text}
-							/>
-							<br />
-							<br />
-							<Button
-								type="primary"
-								loading={this.state.publish_loading}
-								onClick={() => this.publish()}>
+				<Card size="small" title="MQTT Status Check" style={{ width: 170 }}>
+					<Spin
+						spinning={this.state.loading}
+						tip="Connection lost"
+						indicator={loadingIcon}
+					>
+						<Badge
+							status={this.state.status}
+							text={this.state.status_text}
+						/>
+						<br />
+						<Badge
+							color={this.state.idle}
+							text={this.state.idle_text}
+						/>
+						<br />
+						<br />
+						<Button
+							type="primary"
+							loading={this.state.publish_loading}
+							onClick={() => this.publish()}>
 								Publish Test
-							</Button>
-						</Spin>
-					</Card>
-
-				</div>
+						</Button>
+					</Spin>
+				</Card>
 			</>
 		);
 	}

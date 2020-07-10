@@ -29,7 +29,7 @@ class LineChart2 extends React.Component {
 
 		const yScale = scaleLinear({
 			range: [height, 0],
-			domain: [0, yMax],
+			domain: [0, 1],
 		});
 		
 		return (

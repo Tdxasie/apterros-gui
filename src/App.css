@@ -9,4 +9,12 @@
   border-radius: 10px;
 }
 
+.ant-spin-nested-loading > div > .ant-spin .ant-spin-text {
+
+    text-shadow: unset;
+}
+
+.ant-spin-blur {
+    opacity: 0.05;
+}
 
