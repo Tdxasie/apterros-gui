@@ -96,6 +96,7 @@ export default class MQTTReceiver {
 		if (publishPacket.topic !== undefined){
 			const topic = publishPacket.topic;
 			const message = publishPacket.message;
+			// set back the publish reducer state to undefined first
 			this.store.dispatch({
 				type: MQTTPUBLISH,
 				payload: {

@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { WINDOW } from '../constants/settings';
-import { Card } from 'antd';
+import { Card, Button, Dropdown, Menu } from 'antd';
+import { SettingOutlined } from '@ant-design/icons';
 
 // vx imports
 import { Group } from '@vx/group';
@@ -11,12 +12,13 @@ import { scaleLinear } from '@vx/scale';
 import { max } from 'd3-array';
 
 
+
 const width = 500;
 const height = 100;
 
 const margin = { top: 0, right: 0, bottom: 0, left: 0};
 
-class LineChart2 extends React.Component {
+class LineChart extends React.Component {
 	
 	render() {
 		const xMax = max(this.props.data.map(v => v.x));
@@ -31,10 +33,33 @@ class LineChart2 extends React.Component {
 			range: [height, 0],
 			domain: [0, 1],
 		});
+
+		const menu = (
+			<Menu>
+				<Menu.Item key="1">1st item</Menu.Item>
+				<Menu.Item key="2">2nd item</Menu.Item>
+				<Menu.Item key="3">3rd item</Menu.Item>
+			</Menu>
+		);
 		
 		return (
 			<div>
-				<Card title="Graphs">
+				<Card 
+					title="Graphs"
+					size="small"
+					extra={
+						<Dropdown overlay={menu}>
+							<Button
+								disabled={false}
+								type="text"
+								shape="circle"
+								icon={
+									<SettingOutlined />
+								}
+							/>
+						</Dropdown>
+					}
+				>
 					<svg width={width} height={height}>
 						<Group left={margin.left} top={margin.top}>
 							<AxisBottom
@@ -71,7 +96,8 @@ class LineChart2 extends React.Component {
 					</svg>
 				</Card>
 			</div>
-		);}
+		);
+	}
 }
 		
 function mapStateToProps({ mqttDataReducer }) {
@@ -80,4 +106,4 @@ function mapStateToProps({ mqttDataReducer }) {
 	};
 }
 		
-export default connect(mapStateToProps)(LineChart2);
+export default connect(mapStateToProps)(LineChart);

@@ -5,10 +5,13 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import GlobalHotKeys from 'react-hot-keys';
 import { controlTerminal } from './actions';
+
 // components
 import Quake from './components/Quake';
-import LineChart2 from './components/LineChart2';
+import LineChart from './components/LineChart';
 import MQTTInterface from './components/MQTTInterface';
+import GraphCard from './components/GrapCard';
+import Group from 'antd/lib/input/Group';
 
 
 
@@ -35,7 +38,8 @@ class App extends Component {
 				></GlobalHotKeys>
 				<Quake/>
 				<MQTTInterface/>
-				<LineChart2/>
+				<LineChart/>
+				<GraphCard/>
 			</div>
 		);
 	}

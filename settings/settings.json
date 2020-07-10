@@ -1,0 +1,9 @@
+{
+    "mqtt": {
+        "ip": "mqtt://localhost:1883",
+        "channels": [
+            "test_channel",
+            "/tx/imu"
+        ]
+    }
+}
