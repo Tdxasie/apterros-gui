@@ -1,34 +1,61 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card, Button, Modal, Menu, Checkbox  } from 'antd';
-import { SettingOutlined } from '@ant-design/icons';
+import { Card, Button, Modal, Menu, Checkbox, Input } from 'antd';
+import { SettingOutlined, PlusOutlined } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
-
+const Love = () => <p>love</p>;
 class GraphCard extends React.Component {
 	constructor(props, context){
 		super(props, context);
 		this.state = {
-			graphs: 0,
+			title: 'Graphs',
+			graphs: [],
 			settingsVisible: false,
 			menu: (
-				<Menu mode="inline"
-					selectable={false}> 
+				<Menu 
+					mode="inline"
+					selectable={false}
+					theme="dark"
+				> 
 					<SubMenu title="Graph 1" onTitleClick={console.log('love')}>
 						<Menu.Item>
 							<Checkbox>Autoscale</Checkbox>
 						</Menu.Item>
+						<Menu.Item>
+							<Button onClick={() => this.addGraph()}>Autoscale</Button>
+						</Menu.Item>
+						<Menu.Item>
+							<Input placeholder="Basic usage" onPressEnter={(e) => this.changeTitle(e.target.value)}/>
+						</Menu.Item>
 					</SubMenu>
-					<Menu.Divider />
 					<Menu.Item danger key="delete">Delete This Card</Menu.Item>
 				</Menu>
 			)
 		};
 	}
     
+	changeTitle(title) {
+		this.setState({
+			title: title
+		});
+	}
+    
+	addGraph() {
+		this.setState({
+			graphs: [...this.state.graphs, <Love key/>]
+		});
+	}
+    
 	showModal() {
 		this.setState({
 			settingsVisible: true
+		});
+	}
+    
+	hideModal() {
+		this.setState({
+			settingsVisible: false
 		});
 	}
 
@@ -40,33 +67,35 @@ class GraphCard extends React.Component {
 				<Modal
 					title="Basic Modal"
 					visible={settingsVisible}
-					// onOk={this.handleOk}
-					// onCancel={this.handleCancel}
+					onOk={() => this.hideModal()}
+					onCancel={() => this.hideModal()}
 				>
 					{this.state.menu}
 				</Modal>
 
 				<Card
-					title="Graphs"
 					size="small"
+					style={{ width: 250 }}
+					title="Graphs"
 					extra={
-						<Button
-							type="text"
-							shape="circle"
-							icon={<SettingOutlined />}
-							onClick={() => this.showModal()}
-						/>
+						<>
+							<Button
+								size="small"
+								type="text"
+								icon={<PlusOutlined style={{fontSize: 16}}/>}
+								onClick={() => this.addGraph()}
+							/>
+							<Button
+								size="small"
+								type="text"
+								shape="circle"
+								icon={<SettingOutlined  style={{fontSize: 16}}/>}
+								onClick={() => this.showModal()}
+							/>
+						</>
 					}
 				>
-					<Menu mode="inline">
-						<SubMenu title="Graph 1" onTitleClick={console.log('love')}>
-							<Menu.Item>
-								<Checkbox>Autoscale</Checkbox>
-							</Menu.Item>
-						</SubMenu>
-						<Menu.Divider />
-						<Menu.Item danger key="delete">Delete This Card</Menu.Item>
-					</Menu>
+					{this.state.graphs}
 				</Card>
 			</>
 		);

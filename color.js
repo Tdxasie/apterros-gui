@@ -22,7 +22,10 @@ const options = {
 		'@border-color-base',
 		'@border-color-split',
 		'@background-color-light',
-		'@background-color-base'
+		'@background-color-base',
+		'@checkbox-check-bg',
+		'@menu-dark-submenu-bg',
+		'@menu-dark-bg'
 	],
 	indexFileName: 'index.html',
 	outputFilePath: path.join(__dirname, './public/color.less'),

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { WINDOW } from '../constants/settings';
 import { Card, Button, Dropdown, Menu } from 'antd';
-import { SettingOutlined } from '@ant-design/icons';
+import { SettingOutlined, PlusOutlined } from '@ant-design/icons';
 
 // vx imports
 import { Group } from '@vx/group';
@@ -45,19 +45,28 @@ class LineChart extends React.Component {
 		return (
 			<div>
 				<Card 
-					title="Graphs"
 					size="small"
+					style={{width:520}}
+					title="Graphs"
 					extra={
-						<Dropdown overlay={menu}>
+						<>
 							<Button
-								disabled={false}
+								size="small"
 								type="text"
-								shape="circle"
-								icon={
-									<SettingOutlined />
-								}
+								icon={<PlusOutlined style={{fontSize: 16}}/>}
 							/>
-						</Dropdown>
+							<Dropdown overlay={menu}>
+								<Button
+									size="small"
+									disabled={false}
+									type="text"
+									shape="circle"
+									icon={
+										<SettingOutlined  style={{fontSize: 16}}/>
+									}
+								/>
+							</Dropdown>
+						</>
 					}
 				>
 					<svg width={width} height={height}>
