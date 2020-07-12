@@ -1,11 +1,11 @@
 @import '~antd/dist/antd.css';
 
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: grey; 
+  background: rgb(36, 35, 35); 
   border-radius: 10px;
 }
 
@@ -19,5 +19,6 @@
 
 body {
     user-select: none;
+    overflow-x: hidden;
 }
 

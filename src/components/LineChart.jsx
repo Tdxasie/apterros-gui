@@ -69,6 +69,7 @@ class LineChart extends React.Component {
 						</>
 					}
 				>
+					<h4>love</h4>
 					<svg width={width} height={height}>
 						<Group left={margin.left} top={margin.top}>
 							<AxisBottom

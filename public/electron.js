@@ -1,12 +1,20 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
+const SettingsHandlerServer = require('../src/scripts/SettingsHandlerServer');
+
+
+const settings_path = '../../settings/settings.json';
+
+const SettingsHandler = new SettingsHandlerServer(settings_path);
+
+SettingsHandler.init();
 
 function createWindow () {
 	// Create the browser window.
 	const win = new BrowserWindow({
 		frame: false,
-		width: 1000,
+		width: 800,
 		height: 800,
 		webPreferences: {
 			nodeIntegration: true

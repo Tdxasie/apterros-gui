@@ -6,6 +6,7 @@ import { NEWDATA } from '../constants/action_types';
 import { MQTTSTATUS } from '../constants/action_types';
 import { MQTTPUBLISH } from '../constants/action_types';
 
+
 const ip = 'mqtt://localhost:1883';
 const channels = ['test_channel'];
 
@@ -16,10 +17,8 @@ const options = {
 };
 
 export default class MQTTReceiver {
-	constructor(_store, _ip = ip, _channels = channels){
+	constructor(_store){
 		this.store = _store;
-		this.ip = _ip;
-		this.channels = _channels;
 		this.timeout = undefined;
 		this.mean_index = 0;
 		this.total = 0;
@@ -27,6 +26,13 @@ export default class MQTTReceiver {
 		this.store.subscribe(() => {
 			this.publisher(this.store.getState().mqttPublishReducer);
 		});
+	}
+    
+	init() { // read settings to get channels and ip
+		const settings = this.store.getState().settingsReducer;
+		console.log(settings);
+		this.ip = settings.mqtt.ip;
+		this.channels = settings.mqtt.channels;
 	}
     
 	connect(){

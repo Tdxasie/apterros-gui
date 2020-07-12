@@ -7,6 +7,7 @@ import { createStore } from 'redux';
 import allReducers from './reducers';
 import { Provider } from 'react-redux';
 import MQTTReceiver from './scripts/MQTTReceiver';
+import SettingsHandlerClient from './scripts/SettingsHandlerClient';
 const customTitlebar = require('custom-electron-titlebar');
 
 new customTitlebar.Titlebar({
@@ -15,13 +16,13 @@ new customTitlebar.Titlebar({
 
 const store = createStore(allReducers);
 
-try{
-	const mqtt = new MQTTReceiver(store);
-	mqtt.connect();
-} catch (e) {
-	console.log(e);
-}
+const SettingsHandler = new SettingsHandlerClient(store);
+SettingsHandler.init();
 
+const mqtt = new MQTTReceiver(store);
+
+mqtt.init();
+mqtt.connect();
 
 ReactDOM.render(
 	<React.StrictMode>

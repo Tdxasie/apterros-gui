@@ -11,9 +11,10 @@ import Quake from './components/Quake';
 import LineChart from './components/LineChart';
 import MQTTInterface from './components/MQTTInterface';
 import GraphCard from './components/GrapCard';
-import Group from 'antd/lib/input/Group';
 
-
+//layout
+import { Responsive, WidthProvider } from 'react-grid-layout';
+const ResponsiveGridLayout = WidthProvider(Responsive);
 
 // antdesign layouts
 
@@ -21,6 +22,7 @@ class App extends Component {
 	constructor(props, context){
 		super(props, context);
 		this.inputRef = React.createRef();
+		this.state = { value: true};
 	}
     
 	componentDidUpdate(){
@@ -28,8 +30,17 @@ class App extends Component {
 			this.inputRef.current.focus();
 		}
 	}
+    
+	onHandle(){
+		this.setState( (prevState) => ({ value: !prevState.value}));
+	}
 
 	render() {
+		const layout = [
+			{ i: 'a', x: 0, y: 0, w: 4, h: 1 },
+			{ i: 'b', x: 4, y: 2, w: 4, h: 1 },
+			{ i: 'c', x: 8, y: 4, w: 4, h: 1 },
+		];
 		return (
 			<div ref={this.inputRef} tabIndex={-1}>
 				<GlobalHotKeys
@@ -37,9 +48,27 @@ class App extends Component {
 					onKeyDown={() => this.props.controlTerminal(!this.props.isOpen)}
 				></GlobalHotKeys>
 				<Quake/>
-				<MQTTInterface/>
-				<LineChart/>
-				<GraphCard/>
+				{/* <ResponsiveGridLayout
+					className="layout"
+					layouts={layout}
+					breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
+					cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}}
+					rowHeight={100}
+					width={800}
+					verticalCompact={false}
+					preventCollision={true}
+                    
+				> */}
+				<div key="a">
+					<MQTTInterface/>
+				</div>
+				<div key="b">
+					<LineChart/>
+				</div>
+				<div key="c">
+					<GraphCard/>
+				</div>
+				{/* </ResponsiveGridLayout> */}
 			</div>
 		);
 	}
