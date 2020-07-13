@@ -17,6 +17,11 @@
     opacity: 0.05;
 }
 
+.settings-drawer {
+    overflow: hidden;
+    position: relative;
+}
+
 body {
     user-select: none;
     overflow-x: hidden;

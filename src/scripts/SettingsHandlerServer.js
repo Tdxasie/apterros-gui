@@ -19,7 +19,6 @@ module.exports =  class SettinsHandlerServer {
 		});
 
 		ipcMain.on(SETTINGS_REQUEST, (event, arg) => {
-			console.log(arg);
 			if(arg !== undefined){
 				this.settings = arg;
 				fs.writeFile(this.path, JSON.stringify(arg, null, 4), (err) => {

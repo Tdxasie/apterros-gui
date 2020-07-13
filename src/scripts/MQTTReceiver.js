@@ -6,15 +6,11 @@ import { NEWDATA } from '../constants/action_types';
 import { MQTTSTATUS } from '../constants/action_types';
 import { MQTTPUBLISH } from '../constants/action_types';
 
-
-const ip = 'mqtt://localhost:1883';
-const channels = ['test_channel'];
-
-const options = {
-	clientId: 'apterros_gui',
-	keepalive: 10,
-	reconnectPeriod: 200,
-};
+// const options = {
+// 	clientId: 'apterros_gui',
+// 	keepalive: 10,
+// 	reconnectPeriod: 200,
+// };
 
 export default class MQTTReceiver {
 	constructor(_store){
@@ -30,13 +26,13 @@ export default class MQTTReceiver {
     
 	init() { // read settings to get channels and ip
 		const settings = this.store.getState().settingsReducer;
-		console.log(settings);
 		this.ip = settings.mqtt.ip;
 		this.channels = settings.mqtt.channels;
+		this.options = settings.mqtt.options;
 	}
     
 	connect(){
-		this.client = mqtt.connect(this.ip, options);
+		this.client = mqtt.connect(this.ip, this.options);
         
 		this.client.on('connect',  () => {
 			console.log(`Connected to ${this.ip}`);

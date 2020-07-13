@@ -1,11 +1,14 @@
 {
     "mqtt": {
         "ip": "mqtt://localhost:1883",
+        "options": {
+            "clientId": "apterros_gui",
+            "keepalive": 10,
+            "reconnectPeriod": 200
+        },
         "channels": [
             "test_channel",
-            "/tx/imu",
-            "love",
-            "love"
+            "/tx/imu"
         ]
     }
 }

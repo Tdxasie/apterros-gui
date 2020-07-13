@@ -36,11 +36,11 @@ class App extends Component {
 	}
 
 	render() {
-		const layout = [
-			{ i: 'a', x: 0, y: 0, w: 4, h: 1 },
-			{ i: 'b', x: 4, y: 2, w: 4, h: 1 },
-			{ i: 'c', x: 8, y: 4, w: 4, h: 1 },
-		];
+		// const layout = [
+		// 	{ i: 'a', x: 0, y: 0, w: 4, h: 1 },
+		// 	{ i: 'b', x: 4, y: 2, w: 4, h: 1 },
+		// 	{ i: 'c', x: 8, y: 4, w: 4, h: 1 },
+		// ];
 		return (
 			<div ref={this.inputRef} tabIndex={-1}>
 				<GlobalHotKeys
@@ -59,15 +59,12 @@ class App extends Component {
 					preventCollision={true}
                     
 				> */}
-				<div key="a">
-					<MQTTInterface/>
-				</div>
-				<div key="b">
-					<LineChart/>
-				</div>
-				<div key="c">
-					<GraphCard/>
-				</div>
+				{/* <div key="a"> */}
+				<MQTTInterface/>
+				{/* </div> */}
+				{/* <div key="c"> */}
+				<GraphCard/>
+				{/* </div> */}
 				{/* </ResponsiveGridLayout> */}
 			</div>
 		);
