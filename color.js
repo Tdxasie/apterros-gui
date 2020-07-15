@@ -25,7 +25,8 @@ const options = {
 		'@background-color-base',
 		'@checkbox-check-bg',
 		'@menu-dark-submenu-bg',
-		'@menu-dark-bg'
+		'@menu-dark-bg',
+		'@disabled-color'
 	],
 	indexFileName: 'index.html',
 	outputFilePath: path.join(__dirname, './public/color.less'),

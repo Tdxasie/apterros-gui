@@ -15,6 +15,10 @@ class GraphCard extends React.Component {
 		};
 	}
 	
+	componentWillMount() {
+		this.addGraph();
+	}
+	
 	handleMenuClick(e) {
 		if (e.key === 'delete') {
 			// delete card
@@ -28,7 +32,7 @@ class GraphCard extends React.Component {
 			title
 		});
 	}
-
+	
 	setVisible(bool) {
 		this.setState({ visible: bool});
 	}

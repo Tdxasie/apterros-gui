@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { WINDOW } from '../constants/settings';
-import { Drawer, Button } from 'antd';
+import { Button, Modal, Input, Menu } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
+import GraphSettings from './GraphSettings';
 
 // vx imports
 import { Group } from '@vx/group';
@@ -11,6 +12,7 @@ import { AxisLeft, AxisBottom } from '@vx/axis';
 import { scaleLinear } from '@vx/scale';
 import { max } from 'd3-array';
 
+const { SubMenu } = Menu;
 
 const width = 450;
 const height = 100;
@@ -23,13 +25,33 @@ class LineChart extends React.Component {
 		this.state = {
 			title: `Graph ${this.props.id}`,
 			settingsVisible: false
+
 		};
+		this.rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
 	}
     
 	setSettingsVisible(bool) {
-		console.log('love');
 		this.setState({ settingsVisible: bool});
 	}
+
+	changeTitle(title) {
+		this.setState({ title });
+	}
+
+	updateValues(values) {
+		console.log(values);
+	}
+
+	// onOpenChange(openKeys) {
+	// 	const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
+	// 	if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+	// 		this.setState({ openKeys });
+	// 	} else {
+	// 		this.setState({
+	// 			openKeys: latestOpenKey ? [latestOpenKey] : [],
+	// 		});
+	// 	}
+	// }
 	
 	render() {
 		const xMax = max(this.props.data.map(v => v.x));
@@ -73,25 +95,52 @@ class LineChart extends React.Component {
 						/>
 					</Group>
 				</svg>
-				<Drawer
-					title="Basic Drawer"
-					placement="right"
-					closable={false}
-					onClose={() => this.setSettingsVisible(false)}
+				<Modal
+					title="Graph Settings"
 					visible={this.state.settingsVisible}
-					getContainer={false}
-					style={{ position: 'absolute' }}
+					onOk={() => this.setSettingsVisible(false)}
+					onCancel={() => this.setSettingsVisible(false)}
 				>
-					<p>Some contents...</p>
-				</Drawer>
+					{/* <Input placeholder="Rename card" onPressEnter={(e) => this.changeTitle(e.target.value)} />
+					<Menu
+						mode="inline"
+						openKeys={this.state.openKeys}
+						onOpenChange={(openKeys) => this.onOpenChange(openKeys)}
+					>
+						<SubMenu key="sub1" title="Data 1">
+							<Menu.Item key="1">Option 1</Menu.Item>
+							<Menu.Item key="2">Option 2</Menu.Item>
+							<Menu.Item key="3">Option 3</Menu.Item>
+							<Menu.Item key="4">Option 4</Menu.Item>
+						</SubMenu>
+						<SubMenu key="sub2" title="Navigation Two">
+							<Menu.Item key="5">Option 5</Menu.Item>
+							<Menu.Item key="6">Option 6</Menu.Item>
+							<SubMenu key="sub3" title="Submenu">
+								<Menu.Item key="7">Option 7</Menu.Item>
+								<Menu.Item key="8">Option 8</Menu.Item>
+							</SubMenu>
+						</SubMenu>
+						<SubMenu key="sub4" title="Navigation Three">
+							<Menu.Item key="9">Option 9</Menu.Item>
+							<Menu.Item key="10">Option 10</Menu.Item>
+							<Menu.Item key="11">Option 11</Menu.Item>
+							<Menu.Item key="12">Option 12</Menu.Item>
+						</SubMenu>
+					</Menu> */}
+					<GraphSettings
+						values={(values) => this.updateValues(values)}
+					/>
+				</Modal>
 			</div>
 		);
 	}
 }
 		
-function mapStateToProps({ mqttDataReducer }) {
+function mapStateToProps({ mqttDataReducer, settingsReducer }) {
 	return {
-		data: mqttDataReducer.data
+		data: mqttDataReducer.data,
+		settings: settingsReducer.settings
 	};
 }
 		
