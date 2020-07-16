@@ -12,6 +12,7 @@ class GraphCard extends React.Component {
 			graphs: [],
 			settingsVisible: false,
 			visible: false,
+			count: 0
 		};
 	}
 	
@@ -40,11 +41,15 @@ class GraphCard extends React.Component {
 	addGraph() {
 		this.setState({
 			graphs: [...this.state.graphs, 
-				<div key={this.state.graphs.length}>
-					<LineChart id={this.state.graphs.length + 1}/>
-				</div>
-			]
+				{id: this.state.count}
+			],
+			count: this.state.count+1
 		});
+	}
+
+	removeGraph(id) {
+		const graphs = this.state.graphs.filter(graph => graph.id !== id-1);
+		this.setState({ graphs });
 	}
 	
 	render() {
@@ -91,7 +96,13 @@ class GraphCard extends React.Component {
 						</>
 					}
 				>
-					{this.state.graphs}
+					{this.state.graphs.map(graph => (
+						<LineChart
+							key={graph.id}
+							id={graph.id + 1}
+							unMountMe={(id) => this.removeGraph(id)}
+						/>
+					))}
 				</Card>
 			</>
 		);

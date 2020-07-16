@@ -1,5 +1,10 @@
 @import '~antd/dist/antd.css';
 
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+    color: rgba(255, 255, 255, 0.65);
+    background-color: #303030 !important;
+}
+
 ::-webkit-scrollbar {
   width: 4px;
 }
@@ -11,6 +16,14 @@
 
 .ant-spin-nested-loading > div > .ant-spin .ant-spin-text {
     text-shadow: unset;
+}
+
+.ant-input-number-focused {
+    box-shadow: none !important;
+}
+
+.ant-select-focused.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+    box-shadow: none !important;
 }
 
 .ant-spin-blur {
@@ -26,4 +39,3 @@ body {
     user-select: none;
     overflow-x: hidden;
 }
-

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { WINDOW } from '../constants/settings';
 import { Button, Modal, Input, Menu } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import GraphSettings from './GraphSettings';
 
 // vx imports
@@ -14,9 +14,6 @@ import { max } from 'd3-array';
 
 const { SubMenu } = Menu;
 
-const width = 450;
-const height = 100;
-
 const margin = { top: 0, right: 0, bottom: 0, left: 0};
 
 class LineChart extends React.Component {
@@ -24,10 +21,13 @@ class LineChart extends React.Component {
 		super(props, context);
 		this.state = {
 			title: `Graph ${this.props.id}`,
-			settingsVisible: false
-
+			settingsVisible: false,
+			width: 450,
+			height: 100,
+			maxPoints: 400
 		};
 		this.rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
+		this.values = undefined;
 	}
     
 	setSettingsVisible(bool) {
@@ -39,31 +39,34 @@ class LineChart extends React.Component {
 	}
 
 	updateValues(values) {
-		console.log(values);
+		if(values.type == 'XY') {
+			values = { ...values, width: 300, height: 300 };
+		} else if (values.type == 'time') {
+			values = { ...values, width: 450, height: 100};
+		}
+		this.values = values;
 	}
 
-	// onOpenChange(openKeys) {
-	// 	const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
-	// 	if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-	// 		this.setState({ openKeys });
-	// 	} else {
-	// 		this.setState({
-	// 			openKeys: latestOpenKey ? [latestOpenKey] : [],
-	// 		});
-	// 	}
-	// }
+	onOk(){
+		this.setSettingsVisible(false);
+		this.setState(this.values);
+	}
+
+	unMountMe() {
+		this.props.unMountMe(this.props.id);
+	}
 	
 	render() {
 		const xMax = max(this.props.data.map(v => v.x));
 		const yMax = max(this.props.data.map(v => v.y));
 
 		const xScale = scaleLinear({
-			range: [0, width],
-			domain: [xMax>WINDOW ? xMax-WINDOW : 0, xMax],
+			range: [0, this.state.width],
+			domain: [xMax > this.state.maxPoints ? xMax - this.state.maxPoints : 0, xMax],
 		});
 
 		const yScale = scaleLinear({
-			range: [height, 0],
+			range: [this.state.height, 0],
 			domain: [0, 1],
 		});
 		
@@ -77,12 +80,18 @@ class LineChart extends React.Component {
 						icon={<EditOutlined />}
 						onClick={() => this.setSettingsVisible(true)}
 					/>
+					<Button
+						size="small"
+						type="text"
+						icon={<DeleteOutlined />}
+						onClick={() => this.unMountMe()}
+					/>
 				</h4>
-				<svg width={width} height={height}>
+				<svg width={this.state.width} height={this.state.height}>
 					<Group left={margin.left} top={margin.top}>
 						<AxisBottom
 							scale={xScale}
-							top={height}
+							top={this.state.height}
 							stroke={'#3a3a3a'}
 						/>
 						<AxisLeft scale={yScale} stroke={'#3a3a3a'}/>
@@ -98,12 +107,12 @@ class LineChart extends React.Component {
 				<Modal
 					title="Graph Settings"
 					visible={this.state.settingsVisible}
-					onOk={() => this.setSettingsVisible(false)}
+					onOk={() => this.onOk()}
 					onCancel={() => this.setSettingsVisible(false)}
 				>
 					<GraphSettings
 						values={(values) => this.updateValues(values)}
-						name={this.state.title}
+						title={this.state.title}
 					/>
 				</Modal>
 			</div>

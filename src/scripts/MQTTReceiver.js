@@ -44,8 +44,8 @@ export default class MQTTReceiver {
 				}
 			});
 			this.channels.forEach(chnl => {
-				this.client.subscribe(chnl);
-				console.log(`Subscribed to ${chnl}`);
+				this.client.subscribe(chnl.name);
+				console.log(`Subscribed to ${chnl.name}`);
 			});
 		});
 

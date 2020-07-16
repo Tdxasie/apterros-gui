@@ -7,8 +7,63 @@
             "reconnectPeriod": 200
         },
         "channels": [
-            "test_channel",
-            "/tx/imu"
+            {
+                "name": "test_channel",
+                "type": "graph",
+                "fields": [
+                    {
+                        "key": "x",
+                        "type": "index",
+                        "name": "Index"
+                    },
+                    {
+                        "key": "y",
+                        "type": "data",
+                        "name": "Random data"
+                    }
+                ]
+            },
+            {
+                "name": "/tx/imu",
+                "type": "graph",
+                "fields": [
+                    {
+                        "key": "Gx",
+                        "type": "data",
+                        "name": "Gyro X"
+                    },
+                    {
+                        "key": "Gy",
+                        "type": "data",
+                        "name": "Gyro Y"
+                    },
+                    {
+                        "key": "Gz",
+                        "type": "data",
+                        "name": "Gyro Z"
+                    },
+                    {
+                        "key": "Ax",
+                        "type": "data",
+                        "name": "Accel X"
+                    },
+                    {
+                        "key": "Ay",
+                        "type": "data",
+                        "name": "Accel Y"
+                    },
+                    {
+                        "key": "Az",
+                        "type": "data",
+                        "name": "Accel Z"
+                    },
+                    {
+                        "key": "Ts",
+                        "type": "timestamp",
+                        "name": "timestamp"
+                    }
+                ]
+            }
         ]
     }
 }
