@@ -8,7 +8,7 @@ import { controlTerminal } from './actions';
 
 // components
 import Quake from './components/Quake';
-import LineChart from './components/LineChart';
+import GraphContainer from './components/GraphContainer';
 import MQTTInterface from './components/MQTTInterface';
 import GraphCard from './components/GrapCard';
 

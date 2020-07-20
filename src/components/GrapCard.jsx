@@ -2,7 +2,7 @@ import React from 'react';
 // import { connect } from 'react-redux';
 import { Card, Button, Menu, Input, Dropdown } from 'antd';
 import { SettingOutlined, PlusOutlined } from '@ant-design/icons';
-import LineChart from './LineChart';
+import GraphContainer from './GraphContainer';
 
 class GraphCard extends React.Component {
 	constructor(props, context){
@@ -97,7 +97,7 @@ class GraphCard extends React.Component {
 					}
 				>
 					{this.state.graphs.map(graph => (
-						<LineChart
+						<GraphContainer
 							key={graph.id}
 							id={graph.id + 1}
 							unMountMe={(id) => this.removeGraph(id)}
